@@ -19,7 +19,11 @@ contract voting {
 
   vote[] public candidates;
 
-  function addcandidate(address walletaddr, string memory firstname, string memory lastname, uint votes) public
+ modifier onlyOwner() {
+    require(msg.sender == owner, "Only the owner can perform this action.");
+    _;
+}
+  function addcandidate(address walletaddr, string memory firstname, string memory lastname, uint votes) public onlyOwner
     {
         candidates.push(vote(walletaddr,firstname,lastname, votes));
     }
